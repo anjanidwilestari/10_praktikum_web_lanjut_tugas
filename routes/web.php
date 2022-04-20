@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
 
 Route::resource('mahasiswa', MahasiswaController::class);
+Route::get('mahasiswas/nilai/{nim}',[MahasiswaController::class, 'nilai'])
+    ->name('mahasiswa.nilai');
 
 /*
 |--------------------------------------------------------------------------
