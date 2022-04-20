@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->string('nim',10)->primary();
             $table->string('nama',255);
+            $table->string('featured_image');
             $table->string('kelas',100);
             $table->string('jurusan',100);
             $table->string('no_handphone',30);
