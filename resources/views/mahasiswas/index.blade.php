@@ -44,7 +44,6 @@
             <td>{{ $Mahasiswa->nim }}</td>
             <td>{{ $Mahasiswa->nama }}</td>
             <td><img width="100px" src="{{asset('storage/'.$Mahasiswa->featured_image)}}" alt="{{ $Mahasiswa->nim }}" title="{{ $Mahasiswa->nim }}"></td>
-            
             <td>{{ $Mahasiswa->kelas->nama_kelas }}</td>
             <td>{{ $Mahasiswa->jurusan }}</td>
             <td>{{ $Mahasiswa->no_handphone }}</td>

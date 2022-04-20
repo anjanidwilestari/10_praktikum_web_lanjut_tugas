@@ -31,7 +31,6 @@
                         <div class="form-group">
                             <label for="featured_image">Foto</label> 
                             <input type="file" name="featured_image" class="form-control" id="featured_image" aria-describedby="featured_image" > 
-                            
                         </div>
                         <div class="form-group">
                             <label for="kelas">Kelas</label> 

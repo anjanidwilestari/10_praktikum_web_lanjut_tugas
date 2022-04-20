@@ -5,20 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
-use App\Models\MataKuliah;
-use App\Models\Mahasiswa_MataKuliah;
 use Storage;
 
 class MahasiswaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request)
     {
-        
         //melakukan pencarian
         if($request->has('cari')){
             $mahasiswas=Mahasiswa::where('nama','like','%'.$request->cari.'%')->paginate(5);
@@ -33,30 +26,16 @@ class MahasiswaController extends Controller
             return view('mahasiswas.index',  compact('mahasiswas')) 
                 ->with('i', (request()->input('page', 1)-1)* 5);
         }
-        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $kelas = Kelas::all(); //mendapatkan data dari tabel kelas
         return view('mahasiswas.create', ['kelas'=>$kelas]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        
-        
         //melakukan validasi data
         $request->validate([
             'nim' => 'required',
@@ -68,6 +47,7 @@ class MahasiswaController extends Controller
             'email'=>'required|email',
             'tanggal_lahir'=>'required',
         ]);
+
         //fungsi eloquent untuk menambah data
         $mahasiswas=new Mahasiswa;
         $mahasiswas->nim=$request->get('nim');
@@ -97,12 +77,7 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswa.index') 
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($nim)
     {
         //menampilkan detail data dengan menemukan/berdasarkan Nim Mahasiswa
@@ -111,12 +86,6 @@ class MahasiswaController extends Controller
         return view('mahasiswas.detail', compact('Mahasiswa'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($nim)
     {
         //menampilkan detail data dengan menemukan berdasarkan Nim Mahasiswa untuk diedit
@@ -127,13 +96,6 @@ class MahasiswaController extends Controller
         return view('mahasiswas.edit', compact('Mahasiswa', 'kelas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $nim)
     {
         //melakukan validasi data
@@ -147,9 +109,9 @@ class MahasiswaController extends Controller
             'email'=>'required|email',
             'tanggal_lahir'=>'required',
         ]);
+
         //fungsi eloquent untuk mengupdate data inputan kita
         //Mahasiswa::find($nim)->update($request->all());
-
         $Mahasiswa = Mahasiswa::with('kelas')->where('nim',$nim)->first();
         $Mahasiswa->nim = $request->get('nim');
         $Mahasiswa->nama = $request->get('nama');
@@ -179,12 +141,6 @@ class MahasiswaController extends Controller
             ->with('success', 'Mahasiswa Berhasil Diupdate');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($nim)
     {
         //fungsi eloquent untuk menghapus data
