@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
+use App\Models\MahasiswaMataKuliah;
 use Storage;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -153,5 +155,12 @@ class MahasiswaController extends Controller
     {
         $nilai = Mahasiswa::with('kelas', 'matakuliah')->find($nim);
         return view('mahasiswas.nilai',compact('nilai'));
+    }
+
+    public function cetak_pdf($nim)
+    {
+        $Mahasiswa = Mahasiswa::with('kelas', 'matakuliah')->find($nim);
+        $pdf = PDF::loadview('mahasiswas.cetak_pdf',['Mahasiswa'=>$Mahasiswa]);
+        return $pdf->stream($nim.'.pdf');
     }
 };

@@ -6,7 +6,8 @@ use App\Http\Controllers\MahasiswaController;
 Route::resource('mahasiswa', MahasiswaController::class);
 Route::get('mahasiswas/nilai/{nim}',[MahasiswaController::class, 'nilai'])
     ->name('mahasiswa.nilai');
-
+Route::get('mahasiswas/nilai/{nim}/cetak_pdf',[MahasiswaController::class, 'cetak_pdf'])
+    ->name('mahasiswa.cetak_pdf');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
